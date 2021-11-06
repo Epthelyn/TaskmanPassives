@@ -152,7 +152,7 @@ const TaskmanPassives = function(){
     const getPassiveList = () => {
         $.ajax({
             url: 'latestDatabaseExport.json',
-            method: 'POST',
+            method: 'GET',
             dataType: 'JSON',
             success: function(data){
                 console.log(data);
