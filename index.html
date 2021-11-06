@@ -43,7 +43,8 @@
         <div class="taskImporter">
             <div class="importHeader">Import/Export Task Progress<br>Importing</div>
             <!-- <div class="importHeader">Importing</div> -->
-            <ol>
+            <div class="onlymobile">Get the task list from the taskman site using the instructions available on the PC version of this page, paste in the input below and import.</div>
+            <ol class="notmobile">
                 <li>Go to the Passive Tier page of the taskman site</li>
                 <li>Open the console for your browser</li>
                 <li>Copy the code below and paste it into the console input, then repeat until you reach a page with no tasks</li>
@@ -56,7 +57,7 @@ const completedList = Array.from(document.getElementsByClassName('border-green-5
 localStorage.setItem(`taskman-passive-completed-${currentPage}`,JSON.stringify(completedList));
 window.location.href = `https://taskman.rs/tasks/passive?page=${currentPage+1}`;
             </pre>
-            <ol start="4">
+            <ol class="notmobile" start="4">
                 <li>Copy the code below and paste it into the console input</li>
             </ol>
             <pre class="importCode">
@@ -70,14 +71,14 @@ for(let i=1; i<=14; i++){
 }
 console.log(JSON.stringify(combinedData));              
             </pre>
-            <ol start="5">
+            <ol class="notmobile" start="5">
                 <li>Copy the result into the input below and click import</li>
             </ol>
-            <input type="text" class="importCode" id="taskProgressInput">
+            <input type="text" class="importCode importInput" id="taskProgressInput">
             <input type="button" class="importBtn" id="btn_import" value="Import">
             <div class="importHeader">Exporting</div>
             <input type="button" class="importBtn" id="btn_export" value="Export">
-            <input type="text" class="importCode" id="taskProgressExport">
+            <input type="text" class="importCode importInput" id="taskProgressExport">
             <input type="button" class="importBtn" id="btn_impexpclose" value="Close window">
         </div>
     </div>
