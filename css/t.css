@@ -1,0 +1,282 @@
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+}
+
+.content{
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: #252F3F;
+}
+
+.header{
+    width: 100%;
+    height: 64px;
+    display: block;
+    background: #161E2E;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.header > .headerbtn{
+    display: flex;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    color: #D2D6DC;
+    align-items: center;
+    font-weight: bolder;
+}
+
+.header > .headerbtn:hover{
+    background: #293857;
+}
+
+.header > .progressContainer{
+    display: block;
+    float: right;
+    height: 100%;
+    background:#161E2E;
+    width: 50%;
+    padding: 15px;
+}
+
+.progressContainer > .progressBarContainer{
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #161E2E;
+    position: relative;
+    border: 4px solid #2c384b;;
+}
+
+.progressBarContainer > .progressBar{
+    width: 0%;
+    height: 100%;
+    display: block;
+    float: left;
+    background: rgba(5,122,85);
+
+}
+.progressBarContainer > .plannedBar{   
+    width: 0%;
+    height: 100%;
+    display: block;
+    float: left;
+    background:rgb(122, 120, 5);
+}
+
+.progressMilestone{
+    width: 2px;
+    height: 102%;
+    background: #ff3838;
+    position: absolute;
+    top: 0px;
+    left: 15%;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    color: #D2D6DC;
+    font-size: 10px;
+    
+}
+
+.progressMilestone.completed{
+    background: rgb(26, 226, 0);
+}
+
+.progressMilestone.planned{
+    background: rgb(234, 238, 3);
+}
+
+.passiveTable{
+    width: 100%;
+    height: calc(100% - 112px);
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 112px;
+    background: #252F3F;
+    overflow-y: scroll;
+}
+
+.passiveRow{
+    width: 100%;
+    height: auto;
+    /* min-height: 48px; */
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: #D2D6DC;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.passiveRow.fixed{
+    position: absolute;
+    left: 0px;
+    top: 64px;
+    font-weight: bold;
+}
+
+.passiveTable > .passiveRow.even{
+    background: #2c384b;
+}
+
+.passiveTable > .passiveRow.planned{
+    background: rgb(122, 120, 5);
+}
+
+.passiveTable > .passiveRow.planned.even{
+    background: rgb(107, 109, 6);
+}
+
+.passiveTable > .passiveRow.completed{
+    background: rgba(5,122,85);
+}
+
+.passiveTable > .passiveRow.completed.even{
+    background: rgb(6, 109, 76);
+}
+
+.passiveTableCell{
+    display: block;
+    float: left;
+    padding-left: 5px;
+    height: auto;
+    /* height: 36px; */
+    /* overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
+
+.passiveTableCell.borderleft{
+    border-left: 1px solid #D2D6DC;
+}
+
+.passiveTableCell.borderright{
+    border-right: 1px solid #D2D6DC;
+}
+
+.passiveRow > .passiveTableCell.passiveCode{
+    width: 50px;
+    text-align: center;
+}
+
+.passiveRow > .passiveTableCell.passiveStars{
+    width: 50px;
+    text-align: center;
+}
+
+.passiveRow > .passiveTableCell.passiveCategory{
+    width: 75px;
+    text-align: center;
+}
+
+.passiveRow > .passiveTableCell.passiveTitle{
+    width: calc(40% - 250px);
+}
+
+.passiveRow > .passiveTableCell.passiveDesc{
+    width: calc(60% - 250px);
+    font-size: 12px;
+    /* overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
+
+.passiveRow.fixed > .passiveTableCell.passiveDesc{
+    font-size: 16px;
+}
+
+.taskImporter{
+    position: absolute;
+    left: calc(50% - 550px);
+    top: 200px;
+    display: none;
+    color: #D2D6DC;
+    background: #293857;
+    border: 2px solid #161E2E;
+    padding: 5px;
+    text-align: center;
+}
+
+.taskImporter > ol{
+    text-align: left;
+}
+
+.taskImporter > .importHeader{
+    width: 100%;
+    height: auto;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    background: #252F3F;
+    border: 2px solid #161E2E;
+}
+
+.taskImporter > .importCode{
+    width: 100%;
+    height: auto;
+    font-family: monospace;
+    background: #252F3F;
+    user-select: all;
+    color: #D2D6DC;
+    min-height: 30px;
+    text-align: left;
+}
+
+.taskImporter > .importBtn{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 150px;
+    height: 30px;
+    padding: 0px;
+    color: #D2D6DC;
+    background: #252F3F;
+    border: 2px solid #161E2E;
+}
+
+@media only screen and (max-width: 1919px) {
+    .progressMilestone > .restOfWord{
+        font-size: 0px;
+    }
+
+}
+
+@media only screen and (max-width: 750px) {
+    .progressMilestone{
+        font-size: 0px;
+    }
+
+    .passiveTableCell{
+        font-size: 12px;
+    }
+    .passiveTableCell.passiveDesc{
+        width: 0%;
+        display: none;
+    }
+
+    .passiveTableCell.passiveTitle{
+        width: calc(100% - 200px) !important;   
+    }
+
+    .passiveTableCell.passiveCode{
+        width: 40px !important;
+    }
+
+    .passiveTableCell.passiveStars{
+        width: 40px !important;
+    }
+
+    .passiveTableCell.passiveCategory{
+        width: 40px !important;
+        font-size: 12px;
+    }
+}
