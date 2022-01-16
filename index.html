@@ -82,7 +82,7 @@ for (let currentPage = 0; currentPage < 14; currentPage++) {
             <pre class="importCode">
 
 let combinedData = {completed:[]};
-for(let i=1; i<=14; i++){
+for(let i=1; i<14; i++){
     const storedData = JSON.parse(localStorage.getItem(`taskman-passive-completed-${i}`));
     storedData.forEach(item => {
         combinedData.completed.push(item);
