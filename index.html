@@ -48,15 +48,33 @@
                 <li>Go to the Passive Tier page of the taskman site</li>
                 <li>Uncheck "Hide Completed" if checked</li>
                 <li>Open the console for your browser</li>
-                <li>Copy the code below and paste it into the console input, then repeat until you reach a page with no tasks. <b>Let the page fully load each time</b></li>
+                <li>Copy the code below and paste it into the console input></li>
             </ol>
             <pre class="importCode">
+if (document.getElementById('hide completed').checked) {
+    throw new Error("Please turn off 'Hide Completed'");
+}
 
-const currentPage = parseInt(window.location.href.split("=")[1]??'1');
-const completedList = Array.from(document.getElementsByClassName('border-green-500')).map(e => e.getElementsByClassName('font-mono')[0].innerText);
+for (let currentPage = 0; currentPage < 14; currentPage++) {
+    const url = `https://taskman.rs/tasks/passive?page=${currentPage+1}`;
+    let http = new XMLHttpRequest();
+    http.open("GET", url, true);
 
-localStorage.setItem(`taskman-passive-completed-${currentPage}`,JSON.stringify(completedList));
-window.location.href = `https://taskman.rs/tasks/passive?page=${currentPage+1}`;
+    console.log(`Processing page: ${currentPage+1}`);
+
+    http.onreadystatechange = function() {
+        if(http.readyState === 4 && http.status === 200) {
+            let passivePage = document.createElement('div');
+            passivePage.innerHTML = http.responseText;
+
+            const pageList = Array.from(passivePage.getElementsByClassName('border-green-500')).map(
+                e => e.getElementsByClassName('font-mono')[0].innerText.replace(/(\r\n|\n|\r| )/gm, "")
+            );
+            localStorage.setItem(`taskman-passive-completed-${currentPage}`,JSON.stringify(pageList));
+        }
+    }
+    http.send();
+}
             </pre>
             <ol class="notmobile" start="4">
                 <li>Copy the code below and paste it into the console input</li>
