@@ -5791,9 +5791,9 @@
     "passiveTitle": "Obtain the Supreme hunter's helm",
     "passiveDescription": "The helm can be bought from the Slayer Bounty & Deathmatch Reward Shop for 1500 Deathmatch points after becoming the Supreme hunter at least once.",
     "passiveStarRating": "4",
-    "passiveCategory1": "Hard",
-    "passiveCategory2": "Elite",
-    "passiveCategory3": "Master",
+    "passiveCategory1": "-",
+    "passiveCategory2": "-",
+    "passiveCategory3": "God",
     "enabled": "1"
   },
   {
