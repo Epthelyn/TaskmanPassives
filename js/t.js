@@ -16,14 +16,14 @@ const TaskmanPassives = function(){
     const tierOrder = ["Beginner","Easy","Medium","Hard","Elite","Master","Legendary","God","-"];
 
     let tierRequirements = {
-        Beginner: 15,
-        Easy: 60,
-        Medium: 100,
-        Hard: 190,
-        Elite: 320,
-        Master: 440,
-        Legendary: 550,
-        Completion: 684
+        Beginner: 25,
+        Easy: 65,
+        Medium: 120,
+        Hard: 215,
+        Elite: 350,
+        Master: 500,
+        Legendary: 615,
+        God: 730
     }
 
     const spotlight = {
@@ -101,11 +101,15 @@ const TaskmanPassives = function(){
             }
 
             //Task list seems fine, clear the old, input the new
-            const a = confirm("Importing completed tasks will clear all tasks currently marked as completed. Any tasks marked as planned will remain. Continue?");
+            const a = confirm("Importing completed tasks will clear all tasks currently marked as completed. Any tasks marked as planned will be cleared. Continue?");
 
             if(!a) return;
 
             console.log("Clearing and importing tasks!");
+
+            passiveList.forEach(p => {
+                markPlanned(p,false,null);
+            });
             passiveList.forEach(p => {
                markCompleted(p,false,null); 
             });
@@ -151,7 +155,7 @@ const TaskmanPassives = function(){
 
     const getPassiveList = () => {
         $.ajax({
-            url: 'passivedata/latestDatabaseExport.json',
+            url: 'latestDatabaseExport.json',
             method: 'GET',
             dataType: 'JSON',
             success: function(data){
@@ -362,6 +366,10 @@ const TaskmanPassives = function(){
             combinedTierScores[j] = sum;
         }
 
+        for(k in combinedTierScores){
+            combinedTierScores[k] = `${combinedTierScores[k]} (${tierRequirements[k]})`;
+        }
+
         console.log(combinedTierScores);
     }
 
@@ -448,8 +456,42 @@ const TaskmanPassives = function(){
         return (spotlight.getCurrentMinigame(new Date(date).getTime()));
     }
 
+    function compareList(inputData){
+        let comparison = {
+            both: [],
+            input: [],
+            list: []
+        }
+
+        const d = typeof inputData == "object"?inputData:$.parseJSON(inputData);
+        d.forEach(task => {
+            const title = task.title;
+            const inList = passiveList.filter(passive => passive.passiveTitle == title)[0];
+            if(!inList){
+                comparison.input.push(task.title);
+            }
+            else{
+                comparison.both.push(task.title);
+            }
+        });
+
+        passiveList.forEach(passive => {
+            const title = passive.passiveTitle;
+            const inInput = d.filter(task => task.title == title)[0];
+            if(!inInput){
+                comparison.list.push(passive.passiveTitle);
+            }
+            else{
+                comparison.both.push(passive.passiveTitle);
+            }
+        });
+
+        console.log(comparison);
+    }
+
     return{
         importCompletions,
-        querySpotlight
+        querySpotlight,
+        compareList
     }
 }();

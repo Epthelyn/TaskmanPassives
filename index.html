@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taskman Tools!</title>
+    <title>Taskman Passives</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/normalize.css" type="text/css">
     <link rel="stylesheet" href="css/t.css" type="text/css">
@@ -46,9 +46,8 @@
             <div class="onlymobile">Get the task list from the taskman site using the instructions available on the PC version of this page, paste in the input below and import.</div>
             <ol class="notmobile">
                 <li>Go to the Passive Tier page of the taskman site</li>
-                <li>Uncheck "Hide Completed" if checked</li>
                 <li>Open the console for your browser</li>
-                <li>Copy the code below and paste it into the console input</li>
+                <li>Copy the code below and paste it into the console input, then repeat until you reach a page with no tasks</li>
             </ol>
             <pre class="importCode">
 if (document.getElementById('hide completed').checked) {
@@ -74,7 +73,7 @@ for (let currentPage = 0; currentPage < 14; currentPage++) {
         }
     }
     http.send();
-}
+}        
             </pre>
             <ol class="notmobile" start="4">
                 <li>Copy the code below and paste it into the console input</li>
@@ -89,6 +88,7 @@ for(let i=0; i<14; i++){
     });
 }
 console.log(JSON.stringify(combinedData));              
+                                                           
             </pre>
             <ol class="notmobile" start="5">
                 <li>Copy the result into the input below and click import</li>
