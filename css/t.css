@@ -184,11 +184,13 @@
 }
 
 .passiveRow > .passiveTableCell.passiveDesc{
-    width: calc(60% - 250px);
+    width: 30%;
     font-size: 12px;
-    /* overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; */
+}
+
+.passiveRow > .passiveTableCell.passiveReason{
+    width: calc(30% - 250px);
+    font-size: 12px;
 }
 
 .passiveRow.fixed > .passiveTableCell.passiveDesc{
