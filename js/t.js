@@ -208,7 +208,7 @@ const TaskmanPassives = function(){
 
     getPassiveList();
 
-    const createTable = () => {
+    const createTable = () => { //
 
         $('.passiveTable').html(passiveList.map((p,i) => {
             return `
@@ -220,6 +220,7 @@ const TaskmanPassives = function(){
                 <div class="passiveTableCell passiveCategory">${tierAbbreviations[p.passiveCategory3]}</div>
                 <div class="passiveTableCell passiveTitle">${p.passiveTitle}</div>
                 <div class="passiveTableCell passiveDesc">${p.passiveDescription}</div>
+                <div class="passiveTableCell passiveDesc">${p.passivePlacementReason}</div>
             </div>
             `;
         }).join(""));
