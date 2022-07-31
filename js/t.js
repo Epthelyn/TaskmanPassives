@@ -317,6 +317,7 @@ const TaskmanPassives = function(){
     }
 
     const calculateTierRequirements = () => {
+        console.log("Calculating tier requirements");
         let tierScores = {
             "Beginner": {partial: 0, full: 0, combined: 0},
             "Easy":  {partial: 0, full: 0, combined: 0},
@@ -331,20 +332,29 @@ const TaskmanPassives = function(){
         const partialWeighting = 0.5;
         const fullWeighting = 1;
 
-        passiveList.forEach(p => {
-            if(p.passiveCategory2 != "-"){
-                tierScores[p.passiveCategory2].partial += partialWeighting;
+        console.log(passiveList.length);
+        console.log("---");
+        passiveList.forEach((p,index) => {
+            try{
+                if(p.passiveCategory2 != "-" && p.passiveCategory2 != ""){
+                    tierScores[p.passiveCategory2.trim()].partial += partialWeighting;
+                }
+                if(p.passiveCategory3 != "-" && p.passiveCategory3 != ""){
+                    tierScores[p.passiveCategory3.trim()].full += fullWeighting;
+                }
             }
-            if(p.passiveCategory3 != "-"){
-                tierScores[p.passiveCategory3].full += fullWeighting;
+            catch(err){
+                console.log(err);
+                console.log(p);
+
             }
         
         });
-
+        console.log("---");
         for(k in tierScores){
             tierScores[k].combined = tierScores[k].partial + tierScores[k].full;
         }
-
+        console.log("---");
     
         console.log(tierScores);
 
