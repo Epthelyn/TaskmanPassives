@@ -17,12 +17,12 @@ const TaskmanPassives = function(){
 
     let tierRequirements = {
         Beginner: 25,
-        Easy: 65,
-        Medium: 120,
-        Hard: 215,
-        Elite: 350,
-        Master: 500,
-        Legendary: 615,
+        Easy: 70,
+        Medium: 125,
+        Hard: 230,
+        Elite: 365,
+        Master: 515,
+        Legendary: 610,
         God: 730
     }
 
