@@ -161,6 +161,8 @@ const TaskmanPassives = function(){
             success: function(data){
                 console.log(data);
 
+                data = data.filter(d => d.enabled == 1);
+
                 passiveList = data;
 
                 tierRequirements.Completion = passiveList.length;                
