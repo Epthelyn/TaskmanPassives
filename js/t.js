@@ -16,14 +16,14 @@ const TaskmanPassives = function(){
     const tierOrder = ["Beginner","Easy","Medium","Hard","Elite","Master","Legendary","God","-"];
 
     let tierRequirements = {
-        Beginner: 25,
-        Easy: 70,
-        Medium: 125,
-        Hard: 230,
-        Elite: 365,
-        Master: 515,
-        Legendary: 610,
-        God: 730
+        // Beginner: 25,
+        // Easy: 70,
+        // Medium: 125,
+        // Hard: 230,
+        // Elite: 365,
+        // Master: 515,
+        // Legendary: 610,
+        // God: 727
     }
 
     const spotlight = {
@@ -62,8 +62,28 @@ const TaskmanPassives = function(){
             let daysDiff = ((dateAsMS||Date.now()) - spotlight.startMS)/(1000*60*60*24);
             console.log(daysDiff);
             let rotationSteps = Math.floor(daysDiff/3);
-            console.log(rotationSteps);
-            return spotlight.minigames[rotationSteps%27];
+            let offset = daysDiff%3;
+            console.log(rotationSteps,offset);
+
+            let currentSpotlightStart = Date.now() - offset*(1000*60*60*24);
+            console.log(new Date(currentSpotlightStart));
+            return {
+                current: {
+                    minigame: spotlight.minigames[rotationSteps%27],
+                    start: Date.now() - offset*(1000*60*60*24),
+                    end: Date.now() - offset*(1000*60*60*24) + 3*(1000*60*60*24)
+                },
+                next1: {
+                    minigame: spotlight.minigames[(rotationSteps+1)%27],
+                    start: Date.now() - offset*(1000*60*60*24) + 3*(1000*60*60*24),
+                    end: Date.now() - offset*(1000*60*60*24) + 6*(1000*60*60*24)
+                },
+                next2: {
+                    minigame: spotlight.minigames[(rotationSteps+2)%27],
+                    start: Date.now() - offset*(1000*60*60*24) + 6*(1000*60*60*24),
+                    end: Date.now() - offset*(1000*60*60*24) + 9*(1000*60*60*24)
+                },
+            }
         }
     }
     const init = () => {
@@ -152,20 +172,58 @@ const TaskmanPassives = function(){
         });
     }
   
-
-    const getPassiveList = () => {
+    const getSitePassiveRequirements = () => {
         $.ajax({
-            url: 'latestDatabaseExport.json',
-            method: 'GET',
+            url: 'https://taskman.rs/api/tiers',
             dataType: 'JSON',
             success: function(data){
                 console.log(data);
 
-                data = data.filter(d => d.enabled == 1);
+                data.forEach(tier => {
+                    if(tier.id >= 8 || tier.id == 1) return;
 
+                    let tierReq = tier.passives_needed;
+                    tierRequirements[tierOrder[tier.id-2]] = tierReq;
+                });
+
+                console.log(tierRequirements);
+            }
+        });
+    }
+
+    const getPassiveList = () => {
+        $.ajax({
+            url: 'Passive Tool Update - Passive Table.tsv',
+            method: 'GET',
+            success: function(data){
+                
+
+                data = data.split("\n").slice(1).map((row,idx) => {
+                    let cells = row.split("\t");
+
+                    let item = {
+                        passiveTaskCode: cells[0],
+                        passiveStarRating: cells[3],
+                        passiveCategory1: cells[4],
+                        passiveCategory2: cells[5],
+                        passiveCategory3: cells[6],
+                        passiveTitle: cells[1],
+                        passiveDescription: cells[2],
+                        passivePlacementReason: cells[7]=="NULL\r"?"":cells[7],
+                        enabled: 1
+                    }
+
+                    return item;
+                });
+
+                console.log(data);
+
+                // return;
+                data = data.filter(d => d.enabled == 1);
                 passiveList = data;
 
                 tierRequirements.Completion = passiveList.length;                
+                tierRequirements.God = passiveList.length;                
                 
                 calculateTierRequirements();
 
@@ -208,6 +266,7 @@ const TaskmanPassives = function(){
         });
     }
 
+    getSitePassiveRequirements();
     getPassiveList();
 
     const createTable = () => { //
@@ -222,7 +281,7 @@ const TaskmanPassives = function(){
                 <div class="passiveTableCell passiveCategory">${tierAbbreviations[p.passiveCategory3]}</div>
                 <div class="passiveTableCell passiveTitle">${p.passiveTitle}</div>
                 <div class="passiveTableCell passiveDesc">${p.passiveDescription}</div>
-                <div class="passiveTableCell passiveDesc">${p.passivePlacementReason}</div>
+                <div class="passiveTableCell passiveDesc">${p.passivePlacementReason || ""}</div>
             </div>
             `;
         }).join(""));
@@ -332,7 +391,7 @@ const TaskmanPassives = function(){
             "God": {partial: 0, full: 0, combined: 0}
         }
 
-        const partialWeighting = 0.5;
+        const partialWeighting = 0.4;
         const fullWeighting = 1;
 
         console.log(passiveList.length);
