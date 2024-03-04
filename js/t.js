@@ -273,6 +273,7 @@ const TaskmanPassives = function(){
     const createTable = () => { //
 
         $('.passiveTable').html(passiveList.map((p,i) => {
+            if(p.passiveTitle == undefined) return ``;
             return `
             <div class="passiveRow ${i%2==0?"even":"odd"} ${p.planned?"planned":""} ${p.completed?"completed":""}" taskcode="${p.passiveTaskCode}">
                 <div class="passiveTableCell passiveCode">${p.passiveTaskCode}</div>
