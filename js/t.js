@@ -14,7 +14,7 @@ const TaskmanPassives = function(){
         God: "GOD"
     }
 
-    const tierOrder = ["Beginner","Easy","Medium","Hard","Elite","Master","Legendary","God","-"];
+    const tierOrder = ["Tutorial", "Beginner","Easy","Medium","Hard","Elite","Master","Legendary","God","-"];
 
     let tierRequirements = {
         // Beginner: 25,
@@ -181,11 +181,14 @@ const TaskmanPassives = function(){
                 console.log(data);
 
                 data.forEach(tier => {
-                    if(tier.id >= 8 || tier.id == 1) return;
+                    if(tier.id >= 9 || tier.id == 1 || tier.id == -1) return;
 
                     let tierReq = tier.passives_needed;
-                    tierRequirements[tierOrder[tier.id-2]] = tierReq;
+                    tierRequirements[tierOrder[tierOrder.indexOf(tier.title)]] = tierReq;
                 });
+                tierRequirements.Beginner = 1;
+                // tierRequirements.God = passiveList.length;
+                tierRequirements.Completion = passiveList.length;
 
                 console.log(tierRequirements);
                 for(k in tierRequirements){
@@ -195,7 +198,7 @@ const TaskmanPassives = function(){
                     progressMS.classList.add('progressMilestone');
                     progressMS.style.left = `${100*tierRequirements[k]/tierRequirements.Completion}%`;
                     progressMS.setAttribute('tasksRequired',tierRequirements[k]);
-                    const displayTier = tierOrder[tierOrder.indexOf(k)+1];
+                    const displayTier = tierOrder[tierOrder.indexOf(k)];
                     progressMS.innerHTML = `&nbsp;&nbsp;${displayTier[0]}<span class="restOfWord">${displayTier.slice(1)}</span>`;
 
                     if(passiveList.filter(p => p.completed).length >= tierRequirements[k]){
@@ -242,9 +245,10 @@ const TaskmanPassives = function(){
                 data = data.filter(d => d.enabled == 1);
                 passiveList = data;
 
-                tierRequirements.Completion = passiveList.length;                
-                tierRequirements.God = passiveList.length;                
+                // tierRequirements.Completion = passiveList.length;                
+                // tierRequirements.God = passiveList.length;                
                 
+                getSitePassiveRequirements();
                 calculateTierRequirements();
 
                 if(localStorage.getItem('planned-passives')){
@@ -259,11 +263,12 @@ const TaskmanPassives = function(){
                 else{
                     createTable();
                 }
+
+
             }
         });
     }
 
-    getSitePassiveRequirements();
     getPassiveList();
 
     const createTable = () => { //
