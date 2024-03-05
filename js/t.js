@@ -177,6 +177,7 @@ const TaskmanPassives = function(){
         $.ajax({
             url: 'https://taskman.rs/api/tiers',
             dataType: 'JSON',
+            async: false,
             success: function(data){
                 console.log(data);
 
