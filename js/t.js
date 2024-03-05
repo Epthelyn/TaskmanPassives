@@ -177,7 +177,6 @@ const TaskmanPassives = function(){
         $.ajax({
             url: 'https://taskman.rs/api/tiers',
             dataType: 'JSON',
-            async: false,
             success: function(data){
                 console.log(data);
 
@@ -189,6 +188,25 @@ const TaskmanPassives = function(){
                 });
 
                 console.log(tierRequirements);
+                for(k in tierRequirements){
+                    if(k == "Completion") return;
+
+                    let progressMS = document.createElement('div');
+                    progressMS.classList.add('progressMilestone');
+                    progressMS.style.left = `${100*tierRequirements[k]/tierRequirements.Completion}%`;
+                    progressMS.setAttribute('tasksRequired',tierRequirements[k]);
+                    const displayTier = tierOrder[tierOrder.indexOf(k)+1];
+                    progressMS.innerHTML = `&nbsp;&nbsp;${displayTier[0]}<span class="restOfWord">${displayTier.slice(1)}</span>`;
+
+                    if(passiveList.filter(p => p.completed).length >= tierRequirements[k]){
+                        progressMS.classList.add('completed');
+                    }
+                    else if(passiveList.filter(p => p.completed).length+passiveList.filter(p => p.planned).length >= tierRequirements[k]){
+                        progressMS.classList.add('planned');
+                    }
+
+                    $('.progressBarContainer').append(progressMS)
+                }
             }
         });
     }
@@ -241,29 +259,6 @@ const TaskmanPassives = function(){
                 else{
                     createTable();
                 }
-
-                
-                for(k in tierRequirements){
-                    if(k == "Completion") return;
-
-                    let progressMS = document.createElement('div');
-                    progressMS.classList.add('progressMilestone');
-                    progressMS.style.left = `${100*tierRequirements[k]/tierRequirements.Completion}%`;
-                    progressMS.setAttribute('tasksRequired',tierRequirements[k]);
-                    const displayTier = tierOrder[tierOrder.indexOf(k)+1];
-                    progressMS.innerHTML = `&nbsp;&nbsp;${displayTier[0]}<span class="restOfWord">${displayTier.slice(1)}</span>`;
-
-                    if(passiveList.filter(p => p.completed).length >= tierRequirements[k]){
-                        progressMS.classList.add('completed');
-                    }
-                    else if(passiveList.filter(p => p.completed).length+passiveList.filter(p => p.planned).length >= tierRequirements[k]){
-                        progressMS.classList.add('planned');
-                    }
-
-                    $('.progressBarContainer').append(progressMS)
-                }
-
- 
             }
         });
     }
