@@ -57,7 +57,7 @@ if (document.getElementById('hide completed').checked) {
     throw new Error("Please turn off 'Hide Completed'");
 }
 
-for (let currentPage = 0; currentPage < 17; currentPage++) {
+for (let currentPage = 0; currentPage < 20; currentPage++) {
     const url = `https://taskman.rs/tasks/passive?page=${currentPage+1}`;
     let http = new XMLHttpRequest();
     http.open("GET", url, true);
