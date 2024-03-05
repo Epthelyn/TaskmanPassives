@@ -28,6 +28,8 @@ const TaskmanPassives = function(){
         // God: 727
     }
 
+    let showCompletedPassives = true;
+
     const spotlight = {
         start: "2021-11-03 00:00:00",
         startMS: new Date("2021-11-03 00:00:00").getTime(),
@@ -103,6 +105,19 @@ const TaskmanPassives = function(){
 
         $('#impexpbtn').on('click', () => {
             $('.taskImporter').css('display',$('taskImporter').css('display')=="block"?"none":"block");
+        });
+
+        $('#hideshowcompbtn').on('click', function(){
+            showCompletedPassives = !showCompletedPassives;
+
+            if(showCompletedPassives){
+                $(this).html("Hide Completed");
+            }
+            else{
+                $(this).html("Show Completed");
+            }
+
+            createTable();
         });
 
         $('#btn_impexpclose').on('click', () => {
@@ -282,6 +297,7 @@ const TaskmanPassives = function(){
 
         $('.passiveTable').html(passiveList.map((p,i) => {
             if(p.passiveTitle == undefined) return ``;
+            if(p.completed && !showCompletedPassives) return ``;
             return `
             <div class="passiveRow ${i%2==0?"even":"odd"} ${p.planned?"planned":""} ${p.completed?"completed":""}" taskcode="${p.passiveTaskCode}">
                 <div class="passiveTableCell passiveFavourite">${favourites.includes(p.passiveTaskCode)?"⭐":"☆"}</div>
