@@ -313,7 +313,7 @@ const TaskmanPassives = function(){
         });
 
         $('.passiveRow').on('click', function(e){
-            if($(e.target).hasClass("passiveFavourite")) return;
+            if($(e.target).hasClass("passiveFavourite") || e.clientX <= 50) return;
             const taskCode = $(this).attr('taskcode');
             let assocPassive = passiveList.filter(p => p.passiveTaskCode == taskCode)[0];
 
