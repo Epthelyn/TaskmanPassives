@@ -209,6 +209,8 @@ const TaskmanPassives = function(){
                     }
 
                     $('.progressBarContainer').append(progressMS)
+
+                    updateProgress();
                 }
             }
         });
