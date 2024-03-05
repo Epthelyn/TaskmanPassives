@@ -15,6 +15,7 @@ const TaskmanPassives = function(){
     }
 
     const tierOrder = ["Tutorial", "Beginner","Easy","Medium","Hard","Elite","Master","Legendary","God","-"];
+    let favourites = [];
 
     let tierRequirements = {
         // Beginner: 25,
@@ -95,6 +96,9 @@ const TaskmanPassives = function(){
             sortPassivesBy(sortBy.trim())
         });
 
+        if(localStorage.getItem("favouritePassives")){
+            favourites = JSON.parse(localStorage.getItem("favouritePassives"));
+        }
         console.log(spotlight.getCurrentMinigame());
 
         $('#impexpbtn').on('click', () => {
@@ -247,6 +251,7 @@ const TaskmanPassives = function(){
                 data = data.filter(d => d.enabled == 1);
                 passiveList = data;
 
+                sortPassivesBy("Exp");
                 // tierRequirements.Completion = passiveList.length;                
                 // tierRequirements.God = passiveList.length;                
                 
@@ -279,6 +284,7 @@ const TaskmanPassives = function(){
             if(p.passiveTitle == undefined) return ``;
             return `
             <div class="passiveRow ${i%2==0?"even":"odd"} ${p.planned?"planned":""} ${p.completed?"completed":""}" taskcode="${p.passiveTaskCode}">
+                <div class="passiveTableCell passiveFavourite">${favourites.includes(p.passiveTaskCode)?"⭐":"☆"}</div>
                 <div class="passiveTableCell passiveCode">${p.passiveTaskCode}</div>
                 <div class="passiveTableCell passiveStars">${p.passiveStarRating}</div>
                 <div class="passiveTableCell passiveCategory">${tierAbbreviations[p.passiveCategory1]}</div>
@@ -291,7 +297,23 @@ const TaskmanPassives = function(){
             `;
         }).join(""));
 
-        $('.passiveRow').on('click', function(){
+        $('.passiveTableCell.passiveFavourite').on('click', function(e){
+            let code = $(this).parent().attr('taskcode');
+
+            if(favourites.includes(code)){
+                favourites = favourites.filter(c => c!=code);
+            }
+            else{
+                favourites.push(code);
+            }
+
+            localStorage.setItem("favouritePassives",JSON.stringify(favourites));
+
+            createTable();
+        });
+
+        $('.passiveRow').on('click', function(e){
+            if($(e.target).hasClass("passiveFavourite")) return;
             const taskCode = $(this).attr('taskcode');
             let assocPassive = passiveList.filter(p => p.passiveTaskCode == taskCode)[0];
 
@@ -378,6 +400,14 @@ const TaskmanPassives = function(){
         }
         if(sortType == "Description"){
             passiveList = passiveList.sort((a,b) => a.passiveDescription.localeCompare(b.passiveDescription));
+        }
+        if(sortType == "⭐"){
+            passiveList = passiveList.sort((a,b) => {
+                let fA = favourites.includes(a.passiveTaskCode)?1:0;
+                let fB = favourites.includes(b.passiveTaskCode)?1:0;
+
+                return fB - fA;
+            });
         }
 
         createTable();
