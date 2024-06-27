@@ -3,6 +3,7 @@ const TaskmanPassives = function(){
 
     const tierAbbreviations = {
         "-": "-",
+        "": "",
         Tutorial: "TUT",
         Beginner: "BEG",
         Easy: "EASY",
