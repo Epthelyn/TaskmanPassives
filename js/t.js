@@ -10,11 +10,12 @@ const TaskmanPassives = function(){
         Hard: "HARD",
         Elite: "ELITE",
         Master: "MAST",
-        Legendary: "LGND",
-        God: "GOD"
+        Grandmaster: "GM",
+        God: "GOD",
+        
     }
 
-    const tierOrder = ["Tutorial", "Beginner","Easy","Medium","Hard","Elite","Master","Legendary","God","-"];
+    const tierOrder = ["Tutorial", "Beginner","Easy","Medium","Hard","Elite","Master","Grandmaster","God","-"];
     let favourites = [];
 
     let tierRequirements = {
@@ -237,7 +238,7 @@ const TaskmanPassives = function(){
 
     const getPassiveList = () => {
         $.ajax({
-            url: 'Passive Tool Update - Passive Table.tsv',
+            url: 'Passive Tool Update - Passive Table.tsv (1)',
             method: 'GET',
             success: function(data){
                 
@@ -247,13 +248,13 @@ const TaskmanPassives = function(){
 
                     let item = {
                         passiveTaskCode: cells[0],
-                        passiveStarRating: cells[3],
-                        passiveCategory1: cells[4],
-                        passiveCategory2: cells[5],
-                        passiveCategory3: cells[6],
-                        passiveTitle: cells[1],
-                        passiveDescription: cells[2],
-                        passivePlacementReason: cells[7]=="NULL\r"?"":cells[7],
+                        passiveStarRating: cells[4],
+                        passiveCategory1: cells[6],
+                        passiveCategory2: cells[8],
+                        passiveCategory3: cells[10],
+                        passiveTitle: cells[2],
+                        passiveDescription: cells[3],
+                        passivePlacementReason: "",//cells[7]=="NULL\r"?"":cells[7],
                         enabled: 1
                     }
 
@@ -438,7 +439,7 @@ const TaskmanPassives = function(){
             "Hard":  {partial: 0, full: 0, combined: 0},
             "Elite":  {partial: 0, full: 0, combined: 0},
             "Master":  {partial: 0, full: 0, combined: 0},
-            "Legendary":  {partial: 0, full: 0, combined: 0},
+            "Grandmaster":  {partial: 0, full: 0, combined: 0},
             "God": {partial: 0, full: 0, combined: 0}
         }
 
