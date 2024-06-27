@@ -185,22 +185,37 @@
     font-size: 20px;
 }
 
-.passiveRow > .passiveTableCell.passiveCategory{
+.passiveRow > .passiveTableCell.passiveCategory{ /*225px*/
     width: 75px;
     text-align: center;
 }
 
-.passiveRow > .passiveTableCell.passiveTitle{
-    width: calc(40% - 250px);
+.passiveRow > .passiveTableCell.passiveTitle{ /*40%*/
+    width: calc(40% - 225px);
 }
 
-.passiveRow > .passiveTableCell.passiveDesc{
+.passiveRow > .passiveTableCell.passiveDesc{ /*70%*/
     width: 30%;
     font-size: 12px;
 }
 
 .passiveRow > .passiveTableCell.passiveReason{
-    width: calc(30% - 300px);
+    width: 10%;
+    font-size: 12px;
+}
+
+.passiveRow > .passiveTableCell.passiveDependency{
+    width: 10%;
+    font-size: 12px;
+}
+
+.passiveRow > .passiveTableCell.passiveActiveTime{
+    width: 10%;
+    font-size: 12px;
+}
+
+.passiveRow > .passiveTableCell.passiveRealTime{
+    width: 10%;
     font-size: 12px;
 }
 
