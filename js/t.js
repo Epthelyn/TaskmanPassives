@@ -255,6 +255,9 @@ const TaskmanPassives = function(){
                         passiveCategory3: cells[10],
                         passiveTitle: cells[2],
                         passiveDescription: cells[3],
+                        passiveDependency: cells[11],
+                        passiveActiveTime: cells[14],
+                        passiveRealTime: cells[17],
                         passivePlacementReason: "",//cells[7]=="NULL\r"?"":cells[7],
                         enabled: 1
                     }
@@ -310,7 +313,9 @@ const TaskmanPassives = function(){
                 <div class="passiveTableCell passiveCategory">${tierAbbreviations[p.passiveCategory3]}</div>
                 <div class="passiveTableCell passiveTitle">${p.passiveTitle}</div>
                 <div class="passiveTableCell passiveDesc">${p.passiveDescription}</div>
-                <div class="passiveTableCell passiveDesc">${p.passivePlacementReason || ""}</div>
+                <div class="passiveTableCell passiveDependency">${p.passiveDependency || ""}</div>
+                <div class="passiveTableCell passiveActiveTime">${p.passiveActiveTime || ""}</div>
+                <div class="passiveTableCell passiveRealTime">${p.passiveRealTime || ""}</div>
             </div>
             `;
         }).join(""));
