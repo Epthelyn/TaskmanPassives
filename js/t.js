@@ -239,7 +239,7 @@ const TaskmanPassives = function(){
 
     const getPassiveList = () => {
         $.ajax({
-            url: 'Passive Tool Update - Passive Table (1).tsv',
+            url: 'Passive Tool - Passive Table.tsv',
             method: 'GET',
             success: function(data){
                 
