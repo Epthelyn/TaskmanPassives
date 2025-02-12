@@ -268,7 +268,7 @@ const TaskmanPassives = function(){
                 console.log(data);
 
                 // return;
-                data = data.filter(d => d.enabled == 1);
+                data = data.filter(d => d.enabled == 1 && d.passiveTaskCode && d.passiveTaskCode.length);
                 passiveList = data;
 
                 sortPassivesBy("Exp");
